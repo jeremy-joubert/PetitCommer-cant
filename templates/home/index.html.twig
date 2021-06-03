@@ -1,0 +1,201 @@
+{% extends 'base.html.twig' %}
+{% form_theme contactForm 'bootstrap_4_layout.html.twig' %}
+{% block css %}
+    <link rel="stylesheet" href="/css/home.css">
+{% endblock %}
+{% block body %}
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/img/home1.png" alt="home_img">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 class="display-4 font-weight-normal">Les petits commerçants de Pérols</h1>
+                        <p class="lead font-weight-normal">Découvrez les commerçants de Pérols avec Alexandra
+                            Joubert</p>
+                        <p><a class="btn btn-outline-primary" href="{{ path('boutique') }}">Découvrir les
+                                commerçants</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/img/b1.jpg" alt="home_img">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 class="display-4 font-weight-normal">Les petits commerçants de Pérols</h1>
+                        <p class="lead font-weight-normal">Découvrez les commerçants de Pérols avec Alexandra
+                            Joubert</p>
+                        <p><a class="btn btn-outline-primary" href="{{ path('boutique') }}">Découvrir les
+                                commerçants</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/img/b2.jpg" alt="home_img">
+                <div class="container">
+                    <div class="carousel-caption">
+                        <h1 class="display-4 font-weight-normal">Les petits commerçants de Pérols</h1>
+                        <p class="lead font-weight-normal">Découvrez les commerçants de Pérols avec Alexandra
+                            Joubert</p>
+                        <p><a class="btn btn-outline-primary" href="{{ path('boutique') }}">Découvrir les
+                                commerçants</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="container" data-bs-spy="scroll" data-bs-target="#nav-bar" data-bs-offset="0" tabindex="0">
+        <div id="a_propos" class="col-md-7 p-lg-7 mx-auto my-7">
+            <h1 class="text-center titre_parti">À propos</h1>
+            <p class="text-center lead fw-normal">Face à cette situation de crise sanitaire, les commerçants de Saint
+                Roch ont voulu trouver une solution pour vous retrouver, vous, leurs clients qui rythment leur
+                quotidien.</p>
+            <p class="text-center lead fw-normal">Nous avons créé ensemble une boutique en ligne pour vous permettre de
+                retrouver vos commerçants du centre ville de Montpellier.</p>
+            <p class="text-center lead fw-normal">On ne se voit pas, mais chacun derrière nos écrans, on est toujours
+                aussi proches !</p>
+
+        </div>
+
+        <h1 class=" titre_parti">Les nouvelles boutiques</h1>
+        <div id="new_boutique" class="carousel slide carousel-dark" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for i in 1..3 %}
+                    {% if i == 1 %}
+                        <div class="carousel-item active">
+                            <div class="row">
+                                {% for j in 1..3 %}
+                                    <div class="card col-3">
+                                        <a href="{{ path('boutique_show',{id:boutiques[j].getId()}) }}"
+                                           style="text-decoration: none; color: black;">
+                                            {% if boutiques[j].getImage() is null %}
+                                                <img src="/img/b1.jpg" class="card-img"
+                                                     alt="image_boutique">
+                                            {% else %}
+                                                <img src="/img/{{ boutiques[j].getImage().getLien() }}" class="card-img"
+                                                     alt="image_boutique">
+                                            {% endif %}
+                                            <div class="card-img-overlay">
+                                                <h5 class="card-title text-center text-white">{{ boutiques[i].getNom() }}</h5>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="carousel-item">
+                            <div class="row">
+                                {% for j in 1..3 %}
+                                    <div class="card col-3">
+                                        <a href="{{ path('boutique_show',{id:boutiques[j*(i-1)].getId()}) }}"
+                                           style="text-decoration: none; color: black;">
+                                            {% if boutiques[j].getImage() is null %}
+                                                <img src="/img/b1.jpg" class="card-img"
+                                                     alt="image_boutique">
+                                            {% else %}
+                                                <img src="/img/{{ boutiques[j*(i-1)].getImages()[0].getLien() }}"
+                                                     class="card-img" alt="image_boutique">
+                                            {% endif %}
+                                            <div class="card-img-overlay">
+                                                <h5 class="card-title text-center text-white">{{ boutiques[i].getNom() }}</h5>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#new_boutique" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#new_boutique" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <div id="contact" class="row">
+            <div class="col-6">
+                <h1 class="text-center titre_parti">Me contacter</h1>
+                <p class="text-center lead fw-normal">1 rue des aigrettes</p>
+                <p class="text-center lead fw-normal">1christophejoubert@gmail.com</p>
+                <p class="text-center lead fw-normal">06 95 02 74 03</p>
+            </div>
+            <div class="col-6">
+                {{ form_start(contactForm) }}
+                {{ form_widget(contactForm) }}
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+                {{ form_end(contactForm) }}
+            </div>
+        </div>
+
+        <div id="temoinage" class="accordion accordion-flush">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                        Les témoinages
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne"
+                     data-bs-parent="#temoinage">
+                    <div class="accordion-body">
+                        {% for temoinage in temoinages %}
+                            {% if temoinage.getActif() %}
+                                <div class="card mb-3">
+                                    <div class="row g-0">
+                                        <div class="col-md-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"
+                                                 fill="currentColor" class="bi bi-person-fill" viewBox="0 0 50 50">
+                                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ temoinage.getNom() }} {{ temoinage.getPrenom }}</h5>
+                                                <p class="card-text">{{ temoinage.getCommentaire() }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script src="/js/homeBackground.js"/>
+
+    <script type="text/javascript">
+        var myCarousel = document.querySelector('#myCarousel')
+        var carousel = new bootstrap.Carousel(myCarousel, {
+            interval: 60000,
+            wrap: false
+        })
+
+
+    </script>
+{% endblock %}

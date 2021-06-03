@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="form-row">
+                <div class="col">{{ form_row(form.categorieBoutique) }}</div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <div class="container">
+        <h1>Nos commerces</h1>
+        {% set i = 0 %}
+        {% for boutique in boutiques %}
+            {% if i==0 %}
+                {% set i = 1 %}
+                <div class="card mb-3" style="cursor: pointer;">
+                    <a href="{{ path('boutique_show',{id:boutique.getId()}) }}" style="text-decoration: none; color: black;">
+                        <div class="row g-0">
+                            <div class="col-md-5">
+                                <img src="/img/{{ boutique.getImages()[0].getLien() }}" alt="image_boutique"
+                                     style="width: 100%;">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ boutique.getNom() }}</h5>
+                                    <p class="card-text">{{ boutique.getDescription() }}</p>
+                                    <p class="card-text"><small class="text-muted">{{ boutique.getAdresse() }}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% else %}
+                {% set i = 0 %}
+                <div class="card mb-3" style="cursor: pointer;">
+                    <a href="{{ path('boutique_show',{id:boutique.getId()}) }}" style="text-decoration: none; color: black;">
+                        <div class="row g-0">
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ boutique.getNom() }}</h5>
+                                    <p class="card-text">{{ boutique.getDescription() }}</p>
+                                    <p class="card-text"><small class="text-muted">{{ boutique.getAdresse() }}</small>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <img src="/img/{{ boutique.getImages()[0].getLien() }}" alt="image_boutique"
+                                     style="width: 100%;">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="d-flex justify-content-center">
+            {{ knp_pagination_render(boutiques) }}
+        </div>
+    </div>
+{% endblock %}

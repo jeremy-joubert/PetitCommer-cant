@@ -1,0 +1,42 @@
+body{
+    overflow-y: hidden;
+}
+
+#nav-bar-admin{
+    width: 280px;
+    height: calc(100vh - 2rem);
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#content{
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#page-admin{
+    height: calc(100vh - 2rem);
+}
+
+h1{
+    size: calc(1.475rem + 2.7vw) !important;
+}
+
+#msg_bvn{
+    height: 100%;
+    padding-top: 5rem;
+}
+
+#head{
+    display: flex;
+    justify-content: space-between;
+    background-color: #f8f9fa !important;
+    flex-wrap: wrap;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}

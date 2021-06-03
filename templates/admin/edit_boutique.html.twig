@@ -1,0 +1,100 @@
+{% extends 'admin.base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme formImage 'bootstrap_4_layout.html.twig' %}
+
+{% block css %}
+    <link rel="stylesheet" href="/css/editBoutique.css">
+{% endblock %}
+
+{% block body %}
+    <div style="display: flex;">
+        <div class=" bloc_categorie" style="width: 50%;">
+            <h1>Editer la boutique</h1>
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <a href="{{ path('admin_categorie_new',{id:boutique.getId()}) }}" class="btn btn-primary">Ajouter une
+                catégorie</a>
+            <div style="display: flex; justify-content: space-between">
+                <button type="submit" class="btn btn-success">Sauvgarder la boutique</button>
+                <a href="{{ path('admin_boutique_delete',{id:boutique.getId()}) }}"
+                   class="btn btn-danger">Supprimer la boutique</a>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div style="width: 50%;">
+            <div class="bloc_categorie">
+                <h1>Commerçants</h1>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prenom</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for commercant in boutique.getCommercants() %}
+                        <tr>
+                            <th><img class="img_profil_commercant" src="/img/{{ commercant.getImages()[0].getLien }}"></th>
+                            <td>{{ commercant.getNom() }}</td>
+                            <td>{{ commercant.getPrenom() }}</td>
+                            <td>
+                                <a href="{{ path('admin_commercant_delete',{id:commercant.getId()}) }}"
+                                   class="btn btn-danger btn-sm">Supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ path('admin_commercant_new') }}" class="btn btn-primary">Créer un commerçant</a>
+            </div>
+            <div class="bloc_categorie">
+                <h1>Horaires</h1>
+                <table class="table table-borderless">
+                    <thead>
+                    <tr>
+                        <th scope="col">Jour</th>
+                        <th scope="col">Matin</th>
+                        <th scope="col">Après-midi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for horaire in boutique.getHoraires() %}
+                        <tr>
+                            <th>{{ horaire.getJour() }}</th>
+                            <td>{{ horaire.getHeureDebutMatin() }}h - {{ horaire.getHeureFinMatin() }}h</td>
+                            <td>{{ horaire.getHeureDebutApresMidi() }}h - {{ horaire.getHeureFinApresMidi() }}h</td>
+                            <td><a href="{{ path('admin_image_horaire',{id:horaire.getId()}) }}"
+                                   class="btn btn-danger btn-sm">Supprimer</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <a href="{{ path('admin_horaire_new',{id:boutique.getId()}) }}" class="btn btn-primary">Ajouter une
+                    horaire</a>
+            </div>
+        </div>
+    </div>
+    <div class="bloc_categorie">
+        <h1>Images</h1>
+        <div class="d-flex">
+            {% for image in boutique.getImages() %}
+                <div class="image_hover">
+                    <a href="{{ path('admin_image_delete',{id:image.getId()}) }}" class="btn btn-danger btn-sm"
+                       style="display: none;">Supprimer</a>
+                    <img src="/img/{{ image.getLien() }}" class="rounded" alt="image_boutiqque"
+                         style="padding: 0.5rem; max-width: 150px;">
+                </div>
+            {% endfor %}
+        </div>
+        {{ form_start(formImage) }}
+        {{ form_widget(formImage) }}
+        <button type="submit" class="btn btn-success">Sauvgarder</button>
+        {{ form_end(formImage) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/hoverImageButtonDelete.js"></script>
+{% endblock %}

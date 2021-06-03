@@ -1,0 +1,74 @@
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+#myCarousel {
+    margin-bottom: 4rem;
+}
+/* Since positioning the image, we need to help out the caption */
+#myCarousel .carousel-caption {
+    bottom: 3rem;
+    z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+#myCarousel .carousel-item {
+    height: 32rem;
+    /*background: linear-gradient(rgba(29, 38, 113, 0.8), rgba(195, 55, 100, 0.8)); *//* The least supported option. */
+
+
+}
+
+#myCarousel{
+    background: black;
+    background: linear-gradient(0.5turn, #f8f5f0 ,#8e8c84, white);
+}
+
+.carousel-item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    width: 100%;
+    filter: blur(3px);
+    opacity: 0.5;
+}
+
+/* A propos */
+
+#a_propos p{
+    margin-bottom: 0 !important;
+}
+
+.titre_parti{
+    size: calc(1.475rem + 2.7vw) !important;
+    margin-bottom: 1rem !important;
+}
+
+#a_propos{
+    margin-bottom: 5rem;
+}
+
+/* new boutique */
+
+.carousel-item .row{
+    justify-content: center;
+}
+
+#new_boutique .card{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+#new_boutique .card-title{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+#new_boutique{
+    margin-bottom: 5rem;
+}
